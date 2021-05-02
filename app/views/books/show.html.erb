@@ -38,7 +38,9 @@
                 </p>
               <% end %>
             </td>
-            <td>コメント</td>
+            <td>
+              <p>コメント数: <%= @book_show.post_comments.count %></p>
+            </td>
             <% if @book_show.user == current_user %>
               <td>
                 <%= link_to "Edit", edit_book_path(@book_show.id), class: 'btn btn-sm btn-success' %>
@@ -50,6 +52,32 @@
           </tr>
         </tbody>
       </table>
+      <div class="comments">
+        <table class="table">
+          <tbody>
+            <% @book_show.post_comments.each do |post_comment| %>
+              <tr>
+                <td>
+                  <%= link_to user_path(post_comment.user_id) do %>
+                    <%= attachment_image_tag post_comment.user, :profile_image, :fill, 40, 40, fallback: 'no_image.jpg', size: '40x40' %><br>
+                    <%= post_comment.user.name %>
+                  <% end %>
+                </td>
+                <td><%= post_comment.comment %></td>
+                <% if post_comment.user == current_user %>
+                  <td><%= link_to "destroy", book_post_comment_path(post_comment.book_id, post_comment.id), method: :delete, class: 'btn btn-sm btn-danger' %></td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="new-comment">
+        <%= form_with(model:[@book_show, @post_comment], local: true) do |f| %>
+          <%= f.text_area :comment, rows: '5', class: 'comment-form' %>
+          <%= f.submit "送信する" %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
