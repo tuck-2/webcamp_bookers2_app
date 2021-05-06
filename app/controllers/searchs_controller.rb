@@ -1,6 +1,14 @@
 class SearchsController < ApplicationController
   def search
-    @searchs = User.all
-    @searchs = @searchs.where('name LIKE ?', "%#{params[:search]}%") if params[:search].present?
+    @target = params[:target]
+    option = params[:option]
+    search = params[:search]
+    if @target == "1"
+      @result = User.search(option, search)
+    elsif @target == "2"
+      @result = Book.search(option, search)
+    else
+      @result = "検索対象が設定されていません"
+    end
   end
 end

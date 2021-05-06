@@ -1,1 +1,7 @@
-<%= render 'users/list', users: @searchs %>
+<% if @target == "1" %>
+    <%= render 'users/list', users: @result %>
+<% elsif @target == "2" %>
+
+<% else %>
+    <%= @result %>
+<% end %>

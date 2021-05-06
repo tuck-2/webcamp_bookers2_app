@@ -23,6 +23,20 @@ class User < ApplicationRecord
     followeds.where(followed_id: user.id).exists?
   end
 
+  def self.search(option, search)
+    if option == "perfect_match"
+      User.where("name LIKE?", "#{search}")
+    elsif option == "forward_match"
+      User.where("name LIKE?", "#{search}%")
+    elsif option == "backward_match"
+      User.where("name LIKE?", "%#{search}")
+    elsif option == "partial_match"
+      User.where("name LIKE?", "%#{search}%")
+    else
+      User.all
+    end
+  end
+
   validates :name, uniqueness: true, length: {minimum: 2, maximum: 20}
   validates :introduction, length: {maximum: 50}
 
