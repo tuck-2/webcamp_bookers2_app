@@ -54,14 +54,20 @@
       </nav>
     </head>
 
-    <% if user_signed_in? %>
-      <%= form_with url: searchs_search_path, method: :get, local: true do |f| %>
-        <%= f.text_field :search %>
-        <%= f.select :target, {"User": 1, "Book": 2} %>
-        <%= f.select :option, {"完全一致": "perfect_match", "前方一致": "forward_match", "後方一致": "backward_match", "部分一致": "partial_match"}, {selected: "partial_match"} %>
-        <%= f.submit '検索', name: nil %>
-      <% end %>
-    <% end %>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 mt-1 text-center">
+          <% if user_signed_in? %>
+            <%= form_with url: searchs_search_path, method: :get, local: true do |f| %>
+              <%= f.text_field :search %>
+              <%= f.select :target, {"User": 1, "Book": 2} %>
+              <%= f.select :option, {"完全一致": "perfect_match", "前方一致": "forward_match", "後方一致": "backward_match", "部分一致": "partial_match"}, {selected: "partial_match"} %>
+              <%= f.submit '検索', name: nil %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
 
     <main>
       <%= render 'devise/flash' %>

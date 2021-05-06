@@ -1,7 +1,10 @@
+
 <% if @target == "1" %>
+    <h3>Users search for "<%= @search %>"</h3>
     <%= render 'users/list', users: @result %>
 <% elsif @target == "2" %>
-
+    <h3>Books search for "<%= @search %>"</h3>
+    <%= render 'books/list', books: @result %>
 <% else %>
     <%= @result %>
 <% end %>
